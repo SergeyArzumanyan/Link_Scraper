@@ -14,10 +14,11 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Login to Vercel
-        run: vercel login --token $VERCEL_TOKEN
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel login 
+        
 
       - name: Deploy to Vercel
-        run: vercel deploy --prebuilt
+        run: vercel deploy --prebuilt --token $VERCEL_TOKEN
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
