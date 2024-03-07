@@ -14,6 +14,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Deploy to Vercel
-        run: vercel deploy --token $VERCEL_TOKEN --yes
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes
