@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -31,6 +32,3 @@ def get_link_info():
         return jsonify(metadata), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=False,host='0.0.0.0')
