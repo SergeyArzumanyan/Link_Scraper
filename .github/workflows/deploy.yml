@@ -14,7 +14,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Login to Vercel
-        run: vercel login --yes --token $VERCEL_TOKEN
+        run: vercel login --token $VERCEL_TOKEN
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
