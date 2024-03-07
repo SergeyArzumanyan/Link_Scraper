@@ -21,5 +21,4 @@ jobs:
 
       - name: Build and deploy to Vercel
         run: |
-          vercel login --prod --token=${{ secrets.VERCEL_TOKEN }}
-          vercel --prod
+          vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
