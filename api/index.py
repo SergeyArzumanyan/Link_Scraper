@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
-
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 app = Flask(__name__)
 
@@ -11,14 +11,21 @@ def scrape_metadata(url):
 
     title = soup.title.string if soup.title else "No title found"
 
-    meta_description = ''
+    description = ''
     meta_tag = soup.find('meta', attrs={'name': 'description'})
-
     if meta_tag:
-        meta_description = meta_tag['content']
+        description = meta_tag['content']
 
-    return { 'title': title, 'meta_description': meta_description }
+    favicon = ''
+    favicon_link = soup.find('link', rel='icon') or soup.find('link', rel='shortcut icon')
+    if favicon_link and favicon_link.has_attr('href'):
+        favicon = urljoin(url, favicon_link['href'])
 
+    return {
+        'title': title,
+        'description': description,
+        'image': favicon
+    }
 
 @app.route('/get-link-info', methods=['GET'])
 def get_link_info():
@@ -32,3 +39,9 @@ def get_link_info():
         return jsonify(metadata), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    print("Running the Flask application...")
+    app.run(debug=True)
+else:
+    print("This script is being imported, not run directly.")
